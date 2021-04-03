@@ -14,6 +14,9 @@
 /* Inclusion of FXAS21002.h. */
 #include "FXAS21002.h"
 
+/* Inclusion of ctime.h. */
+#include <ctime>
+
 /* Inclusion of all_ops_resolver.h. */
 #include "all_ops_resolver.h"
 
@@ -73,16 +76,22 @@ TfLiteTensor* input = nullptr;
 TfLiteTensor* output = nullptr;
 
 /* Fixed number of bytes used to store working tensors. */
-const int kTensorArenaSize = 32768;
+const int k_tensor_arena_size = 32768;
 
 /* Working tensors' dedicated memory. */
-alignas(16) uint8_t tensor_arena[kTensorArenaSize];
+alignas(16) uint8_t tensor_arena[k_tensor_arena_size];
 
 /* FXOS8700 object that represents the accelerometer. */
 FXOS8700 accel(PTC11, PTC10);
 
 /* FXAS21002 object that represents the gyroscope. */
 FXAS21002 gyro(PTC11, PTC10);
+
+/* Thread used to sample from accelerometer and gyroscope at 50Hz. */
+Thread sampling_thread(osPriorityNormal, 512);
+
+/* Variable used to store the index of the current sample. */
+volatile int curr_sample;
 
 
 /**
@@ -94,6 +103,9 @@ void setup();
 
 /* Function that runs the application. */
 void loop();
+
+/* Function used to sample and store new accelerometer and gyroscope values. */
+void sample();
 
 
 /**
@@ -110,7 +122,7 @@ int main()
 	loop();
 	
 	/* Return zero. */
-    return 0;
+	return 0;
 }
 
 /* setup function used to initializes variables and objects. */
@@ -150,7 +162,7 @@ void setup()
 	model = tflite::GetModel(g_model);
 
 	/* New MicroInterpreter object. */
-	static MicroInterpreter static_interpreter(model, micro_op_resolver, tensor_arena, kTensorArenaSize, error_reporter);
+	static MicroInterpreter static_interpreter(model, micro_op_resolver, tensor_arena, k_tensor_arena_size, error_reporter);
 	
 	/* interpreter initialization. */
 	interpreter = &static_interpreter;
@@ -169,10 +181,51 @@ void setup()
 	
 	/* gyo initialization. */
 	gyro.gyro_config();
+	
+	/* curr_sample initialization. */
+	curr_sample = 0;
 }
 
 /* loop function used to run the application. */
 void loop()
 {
+	/* Start to sample and store values. */
+	sampling_thread.start(sample);
+}
+
+/* sample function used to sample and store new accelerometer and gyroscope values. */
+void sample()
+{
+	/* Local variable used to store the initial time of the current sampling step. */
+	std::clock_t t_0;
 	
+	/* Local variable used to store the duration of the current sampling step. */
+	float duration;
+	
+	/* Infinite loop that allows infinite sampling. */
+	while(true)
+	{
+		/* Store the initial time. */
+		t_0 = std::clock();
+		
+		/* Sample from accelerometer. */
+		accel.acquire_accel_data_g(accel_data[curr_sample]);
+		
+		/* Sample from gyroscope. */
+		gyro.acquire_gyro_data_dps(gyro_data[curr_sample]);
+			
+		/* Update of the current sample. */
+		curr_sample++;
+		
+		/* Eventually run the inference. */
+			
+		/* Get the duration of the current sampling step. */
+	    duration = (std::clock() - t_0) / (float)CLOCKS_PER_SEC;
+	    
+		/* Check if duration if less than 20ms. */
+		if(duration < 0.02)
+			
+			/* Wait for (20ms - duration)ms. */
+			wait(0.02 - duration);
+	}
 }
