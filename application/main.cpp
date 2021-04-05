@@ -17,6 +17,9 @@
 /* Inclusion of ctime.h. */
 #include <ctime>
 
+/* Inclusion of data.h. */
+#include "data.h"
+
 /* Inclusion of all_ops_resolver.h. */
 #include "all_ops_resolver.h"
 
@@ -92,6 +95,9 @@ Thread sampling_thread(osPriorityNormal, 512);
 
 /* Variable used to store the index of the current sample. */
 volatile int curr_sample;
+
+/* Variable used to store an index of windows_offset. */
+volatile int offset_index;
 
 
 /**
@@ -202,6 +208,9 @@ void sample()
 	/* Local variable used to store the duration of the current sampling step. */
 	float duration;
 	
+	/* Local variable used determine whether the buffer has been filled at least once. */
+	bool is_first_cycle = true;
+	
 	/* Infinite loop that allows infinite sampling. */
 	while(true)
 	{
@@ -217,10 +226,34 @@ void sample()
 		/* Update of the current sample. */
 		curr_sample++;
 		
-		/* Eventually run the inference. */
+		/* Check if the working buffer is now full. */
+		if(curr_sample == (int)DIM_BUFFER)
+		{
+			/* Reset curr_sample to zero. */
+			curr_sample = 0;
+			
+			/* If it is the first time the buffer has been filled then set is_first_cycle to false. */
+			if(is_first_cycle)
+				
+				/* Set is_first_cycle to false. */
+				is_first_cycle = false;
+		}
+		
+		/* Iterate over windows_offset. */
+		for(int i = 0; i < (int)N_OFFSETS && !is_first_cycle; i++)
+			
+			/* Check if it is time to run an inference. */
+			if(curr_sample == offsets[i])
+			{
+				/* Set offset_index equal to i. */
+				offset_index = i;
+				
+				/* Increment the value of semaphore. */
+				semaphore.release();
+			}
 			
 		/* Get the duration of the current sampling step. */
-	    duration = (std::clock() - t_0) / (float)CLOCKS_PER_SEC;
+		duration = (std::clock() - t_0) / (float)CLOCKS_PER_SEC;
 	    
 		/* Check if duration if less than 20ms. */
 		if(duration < 0.02)
