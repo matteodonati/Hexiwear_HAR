@@ -1,5 +1,5 @@
 /**
- * Libraries.
+ *	Libraries.
  */
 
 /* Inclusion of model.h. */
@@ -7,7 +7,7 @@
 
 
 /**
- * Variables definition.
+ *	Variables definition.
  */
 
 /* Model dimension. */

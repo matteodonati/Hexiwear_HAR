@@ -113,6 +113,15 @@ void loop();
 /* Function used to sample and store new accelerometer and gyroscope values. */
 void sample();
 
+/* Function used to normalize the model_input data. */
+void normalize_data();
+
+/* Function used to run the inference. */
+void evaluate();
+
+/* Function used to refresh the display. */
+void refresh_display();
+
 
 /**
  *	Functions definition.
@@ -197,6 +206,31 @@ void loop()
 {
 	/* Start to sample and store values. */
 	sampling_thread.start(sample);
+	
+	/* Offset which stores the starting sample of a specific window. */
+	int offset = -1;
+	
+	/* Infinite loop. */
+	while(true)
+	{
+		/* Decrease the semaphore counter by one. */
+		semaphore.wait();
+		
+		/* Set offset to be equal to the index of the specific window's starting element. */
+		offset = (offsets[offset_index] + (int)DIM_BUFFER - N_SAMPLES) % (int)DIM_BUFFER;
+		
+		/* Copy accelerometer data and gyroscope data into model_input. */
+		copy_data(offset);
+		
+		/* Normalize the data. */
+		normalize_data();
+		
+		/* Run the inference. */
+		evaluate();
+		
+		/* Refresh the display. */
+		refresh_display();
+	}
 }
 
 /* sample function used to sample and store new accelerometer and gyroscope values. */
@@ -261,4 +295,22 @@ void sample()
 			/* Wait for (20ms - duration)ms. */
 			wait(0.02 - duration);
 	}
+}
+
+/* normalize_data function used to normalize the model_input data. */
+void normalize_data()
+{
+	
+}
+
+/* evaluate function used to run the inference. */
+void evaluate()
+{
+	
+}
+
+/* refresh_display function used to refresh the display. */
+void refresh_display()
+{
+	
 }

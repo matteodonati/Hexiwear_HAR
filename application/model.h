@@ -1,5 +1,5 @@
 /**
- * Variables declaration.
+ *	Variables declaration.
  */
 
 /* Model dimension. */

@@ -3,7 +3,7 @@ extern "C" {
 #endif
 
 /**
- * Symbolic constats.
+ *	Symbolic constats.
  */
 
 /* Number of axis for each sensor (x, y, z). */
@@ -32,7 +32,7 @@ extern "C" {
 
 
 /**
- * Variables declaration.
+ *	Variables declaration.
  */
  
 /* Accelerometer buffer. */
@@ -49,7 +49,7 @@ extern int offsets[];
 
 
 /**
- * Functions declaration.
+ *	Functions declaration.
  */
 
 /* Function that initializes offsets. */

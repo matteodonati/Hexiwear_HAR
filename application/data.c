@@ -1,5 +1,5 @@
 /**
- * Libraries.
+ *	Libraries.
  */ 
  
 /* Inclusion of data.h. */
@@ -7,7 +7,7 @@
 
 
 /**
- * Variables definition.
+ *	Variables definition.
  */
 
 /* Accelerometer buffer. */
@@ -21,6 +21,11 @@ float model_input[N_SAMPLES][N_SENSORS];
 
 /* Array which stores the offsets value. */
 int offsets[(int)N_OFFSETS];
+
+
+/**
+ *	Function definition.
+ */
 
 /* init_offsets function that initializes offsets. */
 void init_offsets()
