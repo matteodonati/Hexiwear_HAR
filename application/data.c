@@ -34,7 +34,7 @@ void init_offsets()
     for(int i = 0; i < (int)N_OFFSETS; i++)
 		
 		/* Initialize offsets[i]. */
-        offsets[i] = (i * N_SAMPLES) * (1 - OVERLAP);
+		offsets[i] = (i * N_SAMPLES) * (1 - OVERLAP);
 }
 
 /* copy_data function that fills the model_input array with accelerometer data and gyroscope data. */

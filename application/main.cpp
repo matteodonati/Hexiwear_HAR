@@ -300,7 +300,14 @@ void sample()
 /* normalize_data function used to normalize the model_input data. */
 void normalize_data()
 {
-	
+	/* Iterate over model_input elements. */
+	for(int i = 0; i < N_SAMPLES; i++)
+
+		/* Iterate over sensors. */
+		for(int j = 0; j < N_SENSORS; j++)
+			
+			/* Normalize data. */
+			model_input[i][j] /= ((j < N_AXES) ? 2 : 2000);
 }
 
 /* evaluate function used to run the inference. */
