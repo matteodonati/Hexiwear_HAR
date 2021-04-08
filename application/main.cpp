@@ -99,6 +99,12 @@ volatile int curr_sample;
 /* Variable used to store an index of windows_offset. */
 volatile int offset_index;
 
+/* String used to store the output activity. */
+char activity[32];
+
+/* Classes. */
+const char classes[N_CLASSES][32] = {"Sitting", "Lying", "Standing", "Jumping", "Walking", "Running"};
+
 
 /**
  *	Functions declaration.
@@ -300,7 +306,7 @@ void sample()
 /* normalize_data function used to normalize the model_input data. */
 void normalize_data()
 {
-	/* Iterate over model_input elements. */
+	/* Iterate over samples. */
 	for(int i = 0; i < N_SAMPLES; i++)
 
 		/* Iterate over sensors. */
@@ -313,7 +319,40 @@ void normalize_data()
 /* evaluate function used to run the inference. */
 void evaluate()
 {
+	/* Iterate over model_input elements. */
+	for(int i = 0; i < N_SAMPLES * N_SENSORS; i++)
+		
+		/* Set the input tensor to be equal to model_input. */
+		input->data.f[i] = model_input[i / N_SENSORS][i % N_SENSORS];
 	
+	/* Run the inference. */
+	interpreter->Invoke();
+		
+	/* Local variable used to store the maximum output value. */
+	float max_output = 0;
+	
+	/* Local variable used to store the index of the maximum output value. */
+	int max_index = 0;
+
+	/* Iterate over classes. */
+	for (int i = 0; i < N_CLASSES; i++) 
+	{
+		/* Store the current output. */
+		float curr_output = output->data.f[i];
+		
+		/* Check if the current probability is greater than the maximum probability. */
+		if (curr_output > max_output) 
+		{
+			/* Update max_output. */
+			max_output = curr_output;
+			
+			/* Update max_index. */
+			max_index = i;
+		}
+	}
+	
+	/* Update activity. */
+	memcpy(activity, classes[max_index], 32);
 }
 
 /* refresh_display function used to refresh the display. */
