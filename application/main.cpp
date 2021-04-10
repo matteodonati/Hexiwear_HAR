@@ -38,6 +38,9 @@
 /* Inclusion of kernel_util.h. */
 #include "kernel_util.h"
 
+/* Inclusion of images.h. */
+#include "images.h"
+
 /* Use tflite namespace. */
 using namespace tflite;
 
