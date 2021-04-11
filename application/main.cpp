@@ -41,6 +41,9 @@
 /* Inclusion of images.h. */
 #include "images.h"
 
+/* Inclusion of oled.h. */
+#include "oled.h"
+
 /* Use tflite namespace. */
 using namespace tflite;
 
@@ -205,6 +208,9 @@ void setup()
 	
 	/* gyo initialization. */
 	gyro.gyro_config();
+	
+	/* offsets initialization. */
+	init_offsets();
 	
 	/* curr_sample initialization. */
 	curr_sample = 0;
