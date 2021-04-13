@@ -11,10 +11,10 @@
  */
 
 /* Accelerometer buffer. */
-volatile float accel_data[(int)DIM_BUFFER][N_AXES];
+float accel_data[(int)DIM_BUFFER][N_AXES];
 
 /* Gyroscope buffer. */
-volatile float gyro_data[(int)DIM_BUFFER][N_AXES];
+float gyro_data[(int)DIM_BUFFER][N_AXES];
 
 /* Input of the neural network to be filled with accelerometer data and gyroscope data. */
 float model_input[N_SAMPLES][N_SENSORS];

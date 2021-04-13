@@ -13,6 +13,9 @@
 /* SSD1351 object. */
 SSD1351 oled(PTB22, PTB21, PTC13, PTB20, PTE6, PTD15);
 
+/* Text properties. */
+oled_text_properties_t text_properties;
+
 
 /**
  *	Functions definition.
@@ -21,8 +24,14 @@ SSD1351 oled(PTB22, PTB21, PTC13, PTB20, PTE6, PTD15);
 /* init_oled function that initializes the display. */
 void init_oled()
 {	
+	/* Store the text properties.*/
+	oled.GetTextProperties(&text_properties);
+	
+	/* Center the text. */
+	text_properties.alignParam = OLED_TEXT_ALIGN_CENTER;
+	
 	/* Set the text properties. */
-	oled.SetTextProperties(OLED_TEXT_ALIGN_CENTER);
+	oled.SetTextProperties(&text_properties);
 	
 	/* Set the background color to black. */
 	oled.FillScreen(COLOR_BLACK);

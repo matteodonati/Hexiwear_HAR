@@ -105,6 +105,9 @@ volatile int curr_sample;
 /* Variable used to store an index of windows_offset. */
 volatile int offset_index;
 
+/* Semaphore used to run an inference at a specific time to avoid threads collisions. */
+Semaphore semaphore(0, 1);
+
 /* String used to store the output activity. */
 char activity[32];
 

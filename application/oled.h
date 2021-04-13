@@ -16,6 +16,9 @@
 /* SSD1351 object. */
 extern SSD1351 oled;
 
+/* Text properties. */
+extern oled_text_properties_t text_properties;
+
 
 /**
  *	Function declaration.

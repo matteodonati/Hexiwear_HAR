@@ -36,10 +36,10 @@ extern "C" {
  */
  
 /* Accelerometer buffer. */
-extern volatile float accel_data[][N_AXES];
+extern float accel_data[][N_AXES];
 
 /* Gyroscope buffer. */
-extern volatile float gyro_data[][N_AXES];
+extern float gyro_data[][N_AXES];
 
 /* Input of the neural network to be filled with accelerometer data and gyroscope data. */
 extern float model_input[][N_SENSORS];
