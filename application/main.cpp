@@ -219,7 +219,7 @@ void setup()
 	init_oled();
 	
 	/* Print the logo image. */
-    print_image(logo_image, 0, 25);
+	print_image(logo_image, 0, 25);
 	
 	/* Print the border image. */
 	print_image(activity_border_image, 0, 57);
