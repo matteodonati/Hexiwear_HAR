@@ -18,7 +18,7 @@ extern SSD1351 oled;
 
 
 /**
- * Function declaration.
+ *	Function declaration.
  */
  
 /* Function that initializes the display. */

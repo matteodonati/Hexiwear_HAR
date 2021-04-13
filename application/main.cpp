@@ -214,6 +214,18 @@ void setup()
 	
 	/* curr_sample initialization. */
 	curr_sample = 0;
+	
+	/* Display initialization. */
+	init_oled();
+	
+	/* Print the logo image. */
+    print_image(logo_image, 0, 25);
+	
+	/* Print the border image. */
+	print_image(activity_border_image, 0, 57);
+	
+	/* Print the string "Initializing". */
+	print_text("Initializing", 10, 59, 76, 15);
 }
 
 /* loop function used to run the application. */
@@ -222,20 +234,14 @@ void loop()
 	/* Start to sample and store values. */
 	sampling_thread.start(sample);
 	
-	/* Offset which stores the starting sample of a specific window. */
-	int offset = -1;
-	
 	/* Infinite loop. */
 	while(true)
 	{
 		/* Decrease the semaphore counter by one. */
 		semaphore.wait();
 		
-		/* Set offset to be equal to the index of the specific window's starting element. */
-		offset = (offsets[offset_index] + (int)DIM_BUFFER - N_SAMPLES) % (int)DIM_BUFFER;
-		
-		/* Copy accelerometer data and gyroscope data into model_input. */
-		copy_data(offset);
+		/* Copy accelerometer data and gyroscope data into model_input starting from a specific index. */
+		copy_data((offsets[offset_index] + (int)DIM_BUFFER - N_SAMPLES) % (int)DIM_BUFFER);
 		
 		/* Normalize the data. */
 		normalize_data();
@@ -367,5 +373,6 @@ void evaluate()
 /* refresh_display function used to refresh the display. */
 void refresh_display()
 {
-	
+	/* Print the current activity. */
+	print_text(activity, 10, 59, 76, 15);
 }

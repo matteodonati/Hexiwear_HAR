@@ -23,9 +23,9 @@ void init_oled()
 {	
 	/* Set the text properties. */
 	oled.SetTextProperties(OLED_TEXT_ALIGN_CENTER);
- 
-    /* Set the background color to black. */
-    oled.FillScreen(COLOR_BLACK);
+	
+	/* Set the background color to black. */
+	oled.FillScreen(COLOR_BLACK);
 }
 
 /* print_image function that prints an image. */
