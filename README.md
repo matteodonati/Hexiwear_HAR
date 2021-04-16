@@ -2,6 +2,8 @@
 
 This application is an example of neural networks usage on a microcontroller based device such as Hexiwear. In particular, a specific convolutional neural network has been trained and used to create a human activity recognition application which is able to classifiy a certain activity.
 
+![Hexiwear_HAR](https://user-images.githubusercontent.com/57544668/115050006-9cc33f80-9edb-11eb-8de6-0d8e4ced8e1c.png)
+
 ## Hexiwear
 
 Hexiwear is a wearable IoT, microcontroller based device which can be used either as a smartwatch or as a standard development platform thanks to its docking station and the multiple expansion boards available for this product.
