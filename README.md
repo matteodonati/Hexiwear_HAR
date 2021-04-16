@@ -28,27 +28,59 @@ TensorFlow Lite for Microcontrollers is designed to run machine learning models 
 
 More about TensorFlow Lite for Microcontrollers: [(1)](https://www.tensorflow.org/lite/microcontrollers), [(2)](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/micro).
 
+## Requirements
+
+- [Arm Mbed CLI 1](https://os.mbed.com/docs/mbed-os/v6.9/build-tools/mbed-cli-1.html).
+
 ## Usage
 
-```bash
-mbed config root .
-```
+In order to compile the application and produce the binary `.bin` file follow the steps listed below:
 
-```bash
-mbed deploy
-```
+1. Clone the GitHub project.
 
-```python
-python -c 'import fileinput, glob;
-for filename in glob.glob("mbed-os/tools/profiles/*.json"):
-  for line in fileinput.input(filename, inplace=True):
-    print(line.replace("\"-std=gnu++98\"","\"-std=c++11\", \"-fpermissive\""))'
-```
+   ```bash
+   git clone https://github.com/MatteoDonati/Hexiwear_HAR.git
+   ```
 
-```bash
-mbed compile -m HEXIWEAR -t GCC_ARM
-```
+2. Move to the `application` directory:
 
-```bash
-./BUILD/HEXIWEAR/GCC_ARM/application.bin
-```
+   ```bash
+   cd application
+   ```
+
+3. Configure the root directory of the Mbed project:
+
+   ```bash
+   mbed config root .
+   ```
+
+4. Download the dependencies:
+
+   ```bash
+   mbed deploy
+   ```
+
+5. Run the following Python snippet to modify the Mbed configuration files so that it uses `C++11`:
+
+   ```python
+   python -c 'import fileinput, glob;
+   for filename in glob.glob("mbed-os/tools/profiles/*.json"):
+     for line in fileinput.input(filename, inplace=True):
+       print(line.replace("\"-std=gnu++98\"","\"-std=c++11\", \"-fpermissive\""))'
+   ```
+
+6. Compile the application:
+
+   ```bash
+   mbed compile -m HEXIWEAR -t GCC_ARM
+   ```
+
+7. Find and flash the produced binary file:
+
+   ```bash
+   ./BUILD/HEXIWEAR/GCC_ARM/application.bin
+   ```
+
+## License
+
+[MIT License](https://github.com/MatteoDonati/Hexiwear_HAR/blob/main/LICENSE).
