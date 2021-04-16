@@ -38,27 +38,27 @@ More about TensorFlow Lite for Microcontrollers: [(1)](https://www.tensorflow.or
 
 In order to compile the application and produce the binary `.bin` file follow the steps listed below:
 
-1. Clone the GitHub project.
+1. Clone the GitHub project:
 
-   ```bash
+   ```
    git clone https://github.com/MatteoDonati/Hexiwear_HAR.git
    ```
 
 2. Move to the `application` directory:
 
-   ```bash
+   ```
    cd application
    ```
 
 3. Configure the root directory of the Mbed project:
 
-   ```bash
+   ```
    mbed config root .
    ```
 
 4. Download the dependencies:
 
-   ```bash
+   ```
    mbed deploy
    ```
 
@@ -73,13 +73,13 @@ In order to compile the application and produce the binary `.bin` file follow th
 
 6. Compile the application:
 
-   ```bash
+   ```
    mbed compile -m HEXIWEAR -t GCC_ARM
    ```
 
 7. Find and flash the produced binary file:
 
-   ```bash
+   ```
    ./BUILD/HEXIWEAR/GCC_ARM/application.bin
    ```
 
