@@ -1,6 +1,6 @@
 ## Dataset
 
-The `dataset/raw_data.csv` file contains 1,800,000 raw samples obtained by sampling from the two sensors at <img src="svgs/83b7f25a9600297d9d0e80a554e48126.svg?invert_in_darkmode" align=middle width=39.80600909999999pt height=22.465723500000017pt/>. Each sample is a tuple of seven elements:
+The `dataset/raw_data.csv` file contains 1,800,000 raw samples obtained by sampling from the two sensors at 50Hz. Each sample is a tuple of seven elements:
 
 <p align="center">
   <img src="svgs/451a52815ff570363d97588e4241b90e.svg?invert_in_darkmode" align=middle width=200.14085189999997pt height=26.085962100000025pt/>
@@ -44,4 +44,8 @@ In particular:
 
 ## Training and validation
 
+The neural network has been trained for 100 epochs using the 80% of the entire dataset. The other 20% of samples have been used to validate the model.
+
 ## Model creation
+
+The post-training quantized `.cc` model has been created by following the procedure described in the [train_hello_world_model.ipynb](https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/lite/micro/examples/hello_world/train/train_hello_world_model.ipynb). notebook.
