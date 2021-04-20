@@ -48,4 +48,4 @@ The neural network has been trained for 100 epochs using the 80% of the entire d
 
 ## Model creation
 
-The post-training quantized `.cc` model has been created by following the procedure described in the [train_hello_world_model.ipynb](https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/lite/micro/examples/hello_world/train/train_hello_world_model.ipynb). notebook.
+The post-training quantized `.cc` model has been created by following the procedure described in the [train_hello_world_model.ipynb](https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/lite/micro/examples/hello_world/train/train_hello_world_model.ipynb) notebook.
