@@ -21,9 +21,13 @@ In order to continue sampling from the two sensors while running an inference th
 
 ## Workflow
 
+The following picture shows the workflow of the specific application:
+
 <p align="center">
   <img width="650" src="svgs/application_1.svg" />
 </p>
 <p align="center">
   <img width="465" src="svgs/application_2.svg" />
 </p>
+
+In particular, the <img src="svgs/44bc9d542a92714cac84e01cbbb7fd61.svg?invert_in_darkmode" align=middle width=8.68915409999999pt height=14.15524440000002pt/> and <img src="svgs/3cf4fbd05970446973fc3d9fa3fe3c41.svg?invert_in_darkmode" align=middle width=8.430376349999989pt height=14.15524440000002pt/> buffers correspond to the `accel_data` and `gyro_data` buffers defined in the `data.c` file, while the <img src="svgs/84c95f91a742c9ceb460a83f9b5090bf.svg?invert_in_darkmode" align=middle width=17.80826024999999pt height=22.465723500000017pt/> window corresponds to the `model_input` window.
